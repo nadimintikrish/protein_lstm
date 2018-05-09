@@ -4,7 +4,7 @@ import numpy as np
 
 class DataPreProcessor:
     def __init__(self):
-        self.count_dict = {}
+        self.count_dict = {}  # add count-dict
         self.least_preferred = []
         self.X_list_seq = []
         self.y = []
@@ -19,8 +19,8 @@ class DataPreProcessor:
             del self.count_dict[i]
 
     def process_all_seqs(self, X, y):
-        self.X_list_seq = list(map(lambda x:
-                                   self.one_hot_encoder.apply_one_hot_encoding(x), X))
+        apply_one_hot_encoding = self.one_hot_encoder.apply_one_hot_encoding
+        self.X_list_seq = list(map(apply_one_hot_encoding, X))
         self.y = list(y)
         return self.X_list_seq
 
@@ -29,7 +29,20 @@ class DataPreProcessor:
         for ndx in range(0, l, n):
             sliced = self.X_list_seq[ndx:min(ndx + n, l)]
             y_sliced = self.y[ndx:min(ndx + n, l)]  # to-test
-            max_len = max(map(lambda x: len(x), sliced))
+            max_len = max(map(len, sliced))
+            for i in range(len(sliced)):
+                rem_len = max_len - len(sliced[i])
+                if rem_len > 0:
+                    sliced[i].extend([[0] * 3] * rem_len)
+            yield np.array(sliced), np.array(y_sliced)
+
+    @staticmethod
+    def batch_gen(X, y, n=1):
+        l = len(X)
+        for ndx in range(0, l, n):
+            sliced = X[ndx:min(ndx + n, l)]
+            y_sliced = y[ndx:min(ndx + n, l)]  # to-test
+            max_len = max(map(len, sliced))
             for i in range(len(sliced)):
                 rem_len = max_len - len(sliced[i])
                 if rem_len > 0:
