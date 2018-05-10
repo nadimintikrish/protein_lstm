@@ -52,8 +52,10 @@ print("final Shape of the DataSet {}".format(df_protein_seq_final_for_modeling.s
 X_sequences = df_protein_seq_final_for_modeling['sequence']
 y_label = df_protein_seq_final_for_modeling['classification']
 
-data_pre_processor.process_all_seqs(X_sequences[:5], y_label[:5])
+data_pre_processor.process_all_seqs(X_sequences[:15], y_label[:15])
 print("Getting Processed Seqs")
 print(data_pre_processor.get_x())
 print("getting labels")
 print(data_pre_processor.get_y())
+print("getting protein categories")
+print(data_pre_processor.get_protein_categoeies())
