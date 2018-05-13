@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers import LSTM
 from keras.layers import Dense
+from keras.layers import Flatten
 
 
 class LSTMModel:
@@ -17,7 +18,8 @@ class LSTMModel:
                 ret_seq = False
             self.model.add(LSTM(mem_units, return_sequences=ret_seq))
             num_lstm_stack -= 1
-        self.model.add(Dense(self.num_features, activation='softmax'))
+        self.model.add(Flatten())
+        self.model.add(Dense(1, activation='softmax'))
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         return self.model.summary()
 
