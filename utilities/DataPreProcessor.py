@@ -41,7 +41,7 @@ class DataPreProcessor:
             for i in range(len(sliced)):
                 rem_len = max_len - len(sliced[i])
                 if rem_len > 0:
-                    sliced[i].extend([[0] * 3] * rem_len)
+                    sliced[i].extend([[0] * len(self.one_hot_encoder.aa_set)] * rem_len) # to optimize
             yield np.array(sliced), np.array(y_sliced)
 
     def get_protein_categoeies(self):
