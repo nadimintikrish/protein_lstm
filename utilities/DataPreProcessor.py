@@ -23,6 +23,7 @@ class DataPreProcessor:
 
     def process_all_seqs(self, X, y):
         apply_one_hot_encoding = self.one_hot_encoder.apply_one_hot_encoding
+        #self.X_list_seq = list(map(apply_one_hot_encoding,filter(lambda x: len(x) <=1000,X)))
         self.X_list_seq = list(map(apply_one_hot_encoding, X))
         self.y = pd.get_dummies(y)
         self.protein_categories = list(self.y.columns)

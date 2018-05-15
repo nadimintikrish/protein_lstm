@@ -49,6 +49,12 @@ df_protein_seq_final_for_modeling = \
     df_protein_seq_final_for_modeling.reset_index(drop=True)
 print("final Shape of the DataSet {}".format(df_protein_seq_final_for_modeling.shape))
 
+## filtering larger sequences
+df_protein_seq_final_for_modeling = \
+    df_protein_seq_final_for_modeling[df_protein_seq_final_for_modeling.apply(
+        lambda x: len(x['sequence'] <=1200,axis=1)
+    )]
+
 X_sequences = df_protein_seq_final_for_modeling['sequence']
 y_label = df_protein_seq_final_for_modeling['classification']
 
