@@ -11,8 +11,8 @@ class EmbeddingEncoder:
 
     def create_embed_encoder(self):
         aa_place = 0
-        for aa in self.get_aa_set():
-            self.embed_encoder[aa][aa_place] = 1
+        for aa in self.aa_set:
+            self.embed_encoder[aa] = aa_place
             self.decode_dict[aa_place] = aa
             aa_place += 1
 
