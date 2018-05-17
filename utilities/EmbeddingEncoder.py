@@ -17,7 +17,7 @@ class EmbeddingEncoder:
             aa_place += 1
 
     def apply_embed_encoding(self, seq):
-        embed_array = list(map(self.create_embed_encoder, seq))
+        embed_array = [self.embed_encoder[i] for i in seq]
         return embed_array
 
     def get_aa_set(self):
